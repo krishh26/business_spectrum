@@ -70,7 +70,7 @@ export class LoginComponent extends BaseLogin implements OnInit {
           this.notificationService.showSuccess(response?.message || 'User login successfully');
         } else {
           this.showLoader = false;
-          this.notificationService.showError(response?.message);
+          this.notificationService.showError('user doesn’t exist.');
         }
       }, (error) => {
         this.showLoader = false;
