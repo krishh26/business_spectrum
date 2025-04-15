@@ -1,0 +1,89 @@
+<main id="main">
+  <section class="casestudy-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8 col-8">
+            <h4 class="text-theme mb-4">Resources List</h4>
+          </div>
+          <!-- <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-4">
+            <button class="btn btn-primary btn-sm" routerLink="/supplier-admin/roles-list">
+              <i class="bi bi-person-badge"></i> Roles
+            </button>
+          </div> -->
+        </div>
+      </div>
+      <!-- <div class="d-flex align-items-center flex-grow-1">
+        <div class="form-group mb-0 flex-grow-1">
+          <span class="input-icon"><i class="bi bi-search"></i></span>
+          <input class="form-control control-search" placeholder="Search roles" type="text" [(ngModel)]="searchText"
+            (input)="searchtext()" />
+        </div>
+      </div> -->
+      <!-- Loading spinner -->
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Roles table -->
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Roles</th>
+              <th>Experience</th>
+              <th>Technical Skills</th>
+              <th>Languages</th>
+              <th>Hourly Rate</th>
+              <th>Available From</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td *ngIf="!candidatesList?.length" colspan="13">
+                <app-no-record-found></app-no-record-found>
+              </td>
+            </tr>
+
+            <tr
+              *ngFor="let candidate of candidatesList | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalRecords }; let i = index">
+              <td>{{candidate?.fullName}}</td>
+              <td>
+                <span *ngFor="let role of candidate?.roleId" class="badge bg-primary me-1">
+                  {{role.name}}
+                </span>
+              </td>
+              <td>{{candidate?.totalExperience}} years</td>
+              <td>
+                <span *ngFor="let skill of candidate?.technicalSkills; let last = last">
+                  {{skill}}{{!last ? ', ' : ''}}
+                </span>
+              </td>
+              <td>
+                <span *ngFor="let language of candidate?.languagesKnown; let last = last">
+                  {{language}}{{!last ? ', ' : ''}}
+                </span>
+              </td>
+              <td>${{candidate?.hourlyRate}}</td>
+              <td>{{candidate?.availableFrom | date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="viewCandidateDetails(candidate)"> <i class="bi bi-eye"></i> View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <div *ngIf="!loading && (!candidatesList || candidatesList.length === 0)" class="text-center">
+        <p>No candidates found.</p>
+      </div>
+    </div>
+  </section>
+</main>
